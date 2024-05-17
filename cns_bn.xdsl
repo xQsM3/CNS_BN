@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This network was created in GeNIe Academic, which can be used for academic teaching and research purposes only -->
+<smile version="1.0" id="Unnamed" numsamples="10000" discsamples="10000">
+	<nodes>
+		<cpt id="VHF_Data_Link_Failure">
+			<state id="No" />
+			<state id="Yes" />
+			<probabilities>0.9999 0.0001</probabilities>
+		</cpt>
+		<cpt id="G5_Failure">
+			<state id="No" />
+			<state id="Yes" />
+			<probabilities>0.9999 0.0001</probabilities>
+		</cpt>
+		<cpt id="Communication_Failure">
+			<state id="No" />
+			<state id="Yes" />
+			<parents>VHF_Data_Link_Failure G5_Failure</parents>
+			<probabilities>0.999999999999 1e-12 0.999999 1e-06 0.999999 1e-06 0 1</probabilities>
+		</cpt>
+		<cpt id="GNSS_Failure">
+			<state id="No" />
+			<state id="Yes" />
+			<probabilities>0.9999 0.0001</probabilities>
+		</cpt>
+		<cpt id="PNT_Failure">
+			<state id="No" />
+			<state id="Yes" />
+			<probabilities>0.9999 0.0001</probabilities>
+		</cpt>
+		<cpt id="Navigation_Failure">
+			<state id="No" />
+			<state id="Yes" />
+			<parents>GNSS_Failure PNT_Failure</parents>
+			<probabilities>0.999999999999 1e-12 0.999999 1e-06 0.999999 1e-06 0 1</probabilities>
+		</cpt>
+		<cpt id="UAT_Failure">
+			<state id="No" />
+			<state id="Yes" />
+			<probabilities>0.9999 0.0001</probabilities>
+		</cpt>
+		<cpt id="ACAS_X_Failure">
+			<state id="No" />
+			<state id="Yes" />
+			<probabilities>0.9999 0.0001</probabilities>
+		</cpt>
+		<cpt id="COOP_Surveillance_Failure">
+			<state id="No" />
+			<state id="Yes" />
+			<parents>UAT_Failure ACAS_X_Failure</parents>
+			<probabilities>0.999999999999 1e-12 0.999999 1e-06 0.999999 1e-06 0 1</probabilities>
+		</cpt>
+		<cpt id="Weather_Conditions">
+			<state id="Bad" />
+			<state id="Good" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="K_Band_RADAR_Failure">
+			<state id="No" />
+			<state id="Yes" />
+			<parents>Weather_Conditions</parents>
+			<probabilities>0.99 0.01 0.9999 0.0001</probabilities>
+		</cpt>
+		<cpt id="LIDAR_Failure">
+			<state id="No" />
+			<state id="Yes" />
+			<parents>Weather_Conditions</parents>
+			<probabilities>0.99 0.01 0.9999 0.0001</probabilities>
+		</cpt>
+		<cpt id="RF_Detection_Failure">
+			<state id="No" />
+			<state id="Yes" />
+			<probabilities>0.9999 0.0001</probabilities>
+		</cpt>
+		<cpt id="NONCOOP_Surveillance_Failure">
+			<state id="No" />
+			<state id="Yes" />
+			<parents>K_Band_RADAR_Failure LIDAR_Failure RF_Detection_Failure</parents>
+			<probabilities>0.999999999999 1e-12 0.999999 1e-06 0.999999 1e-06 0.9 0.1 0.999999 1e-06 0.9 0.1 0.9 0.1 0 1</probabilities>
+		</cpt>
+		<cpt id="Surveillance_Failure">
+			<state id="No" />
+			<state id="Yes" />
+			<parents>COOP_Surveillance_Failure NONCOOP_Surveillance_Failure</parents>
+			<probabilities>0.999999999999 1e-12 0.999 0.001 0.99 0.01 0 1</probabilities>
+		</cpt>
+		<cpt id="Airspace_Congestion">
+			<state id="Low" />
+			<state id="High" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Ground_Population_Density">
+			<state id="Low" />
+			<state id="High" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Flight_Control_System_Failure">
+			<state id="No" />
+			<state id="Yes" />
+			<parents>Weather_Conditions Airspace_Congestion Ground_Population_Density</parents>
+			<probabilities>0.999999999 1e-09 0.9999999000000001 1e-07 0.99999 1e-05 0.999 0.001 0.999999999999 1e-12 0.9999999999 1e-10 0.9999999899999999 1e-08 0.999999 1e-06</probabilities>
+		</cpt>
+		<cpt id="Risk_of_Crash">
+			<state id="No" />
+			<state id="Yes" />
+			<parents>Communication_Failure Navigation_Failure Surveillance_Failure Flight_Control_System_Failure</parents>
+			<probabilities>0.999999999999 1e-12 0.999 0.001 0.99999 1e-05 0.2 0.8 0.9999 0.0001 0.4 0.6 0.3 0.7 0.1 0.9 0.999999 1e-06 0.3 0.7 0.4 0.6 0.1 0.9 0.4 0.6 0.1 0.9 0.1 0.9 0 1</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 4.1.4109.0 ACADEMIC" name="Unnamed">
+			<node id="Risk_of_Crash">
+				<name>Risk_of_Crash</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>408 534 484 570</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Communication_Failure">
+				<name>Communication_Failure</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>277 684 353 720</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Navigation_Failure">
+				<name>Navigation_Failure</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>211 469 287 505</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Surveillance_Failure">
+				<name>Surveillance_Failure</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>529 346 605 382</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="COOP_Surveillance_Failure">
+				<name>COOP_Surveillance_Failure</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>489 159 565 195</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="NONCOOP_Surveillance_Failure">
+				<name>NONCOOP_Surveillance_Failure</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>744 341 820 377</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Flight_Control_System_Failure">
+				<name>Flight_Control_System_Failure</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>606 651 682 687</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="VHF_Data_Link_Failure">
+				<name>VHF_Data_Link_Failure</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>245 821 321 857</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="G5_Failure">
+				<name>G5_Failure</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>118 741 194 777</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="GNSS_Failure">
+				<name>GNSS_Failure</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>30 485 106 521</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="PNT_Failure">
+				<name>PNT_Failure</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>105 364 181 400</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="UAT_Failure">
+				<name>UAT_Failure</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>380 53 456 89</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="ACAS_X_Failure">
+				<name>ACAS_X_Failure</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>554 30 630 66</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="K_Band_RADAR_Failure">
+				<name>K_Band_RADAR_Failure</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>866 446 942 482</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="LIDAR_Failure">
+				<name>LIDAR_Failure</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>724 452 800 488</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="RF_Detection_Failure">
+				<name>RF_Detection_Failure</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>859 239 935 275</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Weather_Conditions">
+				<name>Weather_Conditions</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>760 559 836 595</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Airspace_Congestion">
+				<name>Airspace_Congestion</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>581 792 657 828</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+			<node id="Ground_Population_Density">
+				<name>Ground_Population_Density</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="Arial" size="8" />
+				<position>732 749 808 785</position>
+				<barchart active="true" width="128" height="64" />
+			</node>
+		</genie>
+	</extensions>
+</smile>
